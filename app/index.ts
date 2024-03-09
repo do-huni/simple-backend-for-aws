@@ -1,6 +1,7 @@
 import * as redis from "redis";
 import { createApp } from "./app";
 import dotenv from "dotenv";
+import { start } from "repl";
 
 dotenv.config();
 
@@ -18,3 +19,4 @@ const startServer = async () => {
         console.log(`App listening at port ${PORT}`);
     });    
 }
+startServer();
