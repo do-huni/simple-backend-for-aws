@@ -1,5 +1,5 @@
 config:
-  target: http://localhost:80
+  target: https://do-huni.com
   phases:
     - duration: 5
       arrivalRate: 30
@@ -7,4 +7,4 @@ config:
 scenarios:
   - flow:
     - get:
-        url: "/fibonacci/10"
+        url: "/fibonacci/35"
