@@ -1,0 +1,10 @@
+config:
+  target: http://localhost:80
+  phases:
+    - duration: 5
+      arrivalRate: 30
+
+scenarios:
+  - flow:
+    - get:
+        url: "/fibonacci/10"

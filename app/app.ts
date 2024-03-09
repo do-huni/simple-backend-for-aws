@@ -3,6 +3,11 @@ import { RedisClientType } from "redis";
 
 const LIST_KEY = "messages";
 
+function fibonacci(n: number): number{
+    if (n <= 1) return n;
+    return fibonacci(n-1) + fibonacci(n-2);
+}
+
 export type RedisClient = RedisClientType<any, any, any>;
 
 export const createApp = (client: RedisClient) =>{
@@ -14,6 +19,11 @@ export const createApp = (client: RedisClient) =>{
         res.status(200).send("hello from express \n deployed on AWS Lightsail!");
     })
 
+    app.get("/fibonacci/:n", (req, res)=>{
+        const n = parseInt(req.params.n, 10);
+        const result = fibonacci(n);
+        res.send(`Fibonacci(${n}) = ${result}`);
+    })
     app.post("/messages", async (req, res)=>{
         const {message} = req.body;
         await client.lPush(LIST_KEY, message);
