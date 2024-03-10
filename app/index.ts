@@ -15,8 +15,28 @@ const startServer = async () => {
     await client.connect();
 
     const app = createApp(client);
-    app.listen(PORT, ()=>{
+    const server = app.listen(PORT, ()=>{
         console.log(`App listening at port ${PORT}`);
     });    
+    return server
 }
-startServer();
+const server = startServer();
+
+const gracefulShutdown = async () => {
+    const _server = await server;
+    _server.close(()=>{
+        // db connection 종료 등 처리
+    })
+}
+
+
+// npm으로 시작하면 SIGNAL 안받을 수 있음.
+process.on("SIGTERM", () =>{
+    console.log("SIGTERM");
+    process.exit();
+});
+
+process.on("SIGINT", () =>{
+    console.log("SIGINT");
+    process.exit();
+});
